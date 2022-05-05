@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 {% if session.user_id %}
 <p>Olet kirjautunut sisään nimellä <b>{{ session.user_name }}</b>.</p>
 <p>Jos haluat kirjautua sisään toiselle käyttäjälle <a href="/logout">kirjaudu ulos</a>.</p>
@@ -11,3 +14,5 @@
 <p>Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä</a>.</p>
 {% endif %}
 <a href="/">Palaa takaisin.</a>
+
+{% endblock %}

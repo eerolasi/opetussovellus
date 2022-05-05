@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <h2>Rekisteröinti</h2>
 {% if session.user_id %}
 <p>Olet kirjautunut sisään nimellä <b>{{ session.user_name }}</b>.</p>
@@ -16,3 +19,5 @@
 <p><button type="submit">Luo tunnus</button></p>
 </form>
 {% endif %}
+
+{% endblock %}

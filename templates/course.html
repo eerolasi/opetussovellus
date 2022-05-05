@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <h1> {{ course.name.capitalize() }} </h1>
 {% if session.user_role == 2 %}
 <h3>Muokkaa kurssin kuvausta:</h3>
@@ -43,3 +46,5 @@
 <p><button type="submit">Poista kurssi</button></p>
 </form>
 {% endif %}
+
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <h2>Luo uusi kurssi</h2>
 {% if session.user_role == 2 %}
 <form action="/create" method="post">
@@ -7,3 +10,5 @@
 {% else %}
 {% endif %}
 </form>
+
+{% endblock %}
