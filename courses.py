@@ -21,7 +21,7 @@ def create_course(name):
 		db.session.commit()
 	except:
 		return False
-	return
+	return True
 
 def add_description(course_id, description):
 	sql = "INSERT INTO descriptions (course_id, description) VALUES (:course_id, :description)"

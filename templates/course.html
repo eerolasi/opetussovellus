@@ -9,3 +9,30 @@
 {% else %}
 <p>{{ description.description }}</p>
 {% endif %}
+
+{% if session.user_role == 2 %}
+<h3>Lisää kysymys:</h3>
+<form action="/add_question" method="post">
+<p>Kysymys: <input type="text" name="question" minlength="1" maxlength="100"></p>
+<p>Vastaus: <input type="text" name="answer" minlength="1" maxlength="100"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<p><button type="submit">Lisää kysymys</button></p>
+</form>
+{% endif %}
+
+<h3>Kysymykset:</h3>
+<ul>{% for question in questions %}</ul>
+{% if session.user_role == 1 %}
+<form action="/add_answer" method="post">
+<p>Kysymys: {{ question.question }}</p>
+<p>Vastaus: <input type="text" name="answer" minlength="1" maxlength="100"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<p><button type="submit" name="question_id" value="{{ question.id }}">Vastaa</button></p>
+</form>
+{% else %}
+<p>Kysymys: {{ question.question }}</p>
+<p>Vastaus: {{ question.answer }}</p>
+{% endif %}
+{% endfor %}
+
+
