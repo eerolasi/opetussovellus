@@ -1,1 +1,11 @@
 <h1> {{ course.name.capitalize() }} </h1>
+{% if session.user_role == 2 %}
+<h3>Muokkaa kurssin kuvausta:</h3>
+<form action="/add_description" method="post">
+<p><textarea name="description">{{ description.description }}</textarea>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"></p>
+<p><button type="submit">Tallenna</button></p>
+</form>
+{% else %}
+<p>{{ description.description }}</p>
+{% endif %}

@@ -21,4 +21,16 @@ def create_course(name):
 		db.session.commit()
 	except:
 		return False
+	return
+
+def add_description(course_id, description):
+	sql = "INSERT INTO descriptions (course_id, description) VALUES (:course_id, :description)"
+	db.session.execute(sql, {"course_id":course_id, "description":description})
+	db.session.commit()
 	return True
+
+def get_description(course_id):
+	sql = "SELECT description FROM descriptions WHERE course_id=:course_id ORDER BY id DESC"
+	result = db.session.execute(sql, {"course_id":course_id})
+	description = result.fetchone()
+	return description

@@ -9,7 +9,8 @@ def index():
 
 @app.route("/course/<int:course_id>")
 def course(course_id):
-        return render_template("course.html", course=courses.get_course(course_id))
+    course = courses.get_course(course_id)
+    return render_template("course.html", course=course, description=courses.get_description(course_id))
 
 @app.route("/create", methods=["get","post"])
 def create_course():
@@ -23,6 +24,17 @@ def create_course():
         if courses.create_course(course_name):
             return redirect("/")
         return render_template("error.html", message="Kurssin lisääminen ei onnistunut.")
+
+@app.route("/add_description", methods=["post"])
+def add_description():
+    users.require_role(2)
+    users.check_csrf()
+    description = request.form["description"]
+    course_id = session["course_id"]
+    if courses.add_description(course_id, description):
+        return redirect(f"/course/{course_id}")
+    return render_template("error.html", message="Kuvauksen lisääminen ei onnistunut.")
+
 
 @app.route("/login", methods=["get","post"])
 def login():
