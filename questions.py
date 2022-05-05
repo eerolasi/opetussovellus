@@ -41,3 +41,9 @@ def get_course(question_id):
 	sql = "SELECT course_id FROM questions WHERE id=:id"
 	result = db.session.execute(sql, {"id":question_id}).fetchone()
 	return result
+
+def delete_question(question_id):
+	sql = "UPDATE questions SET visible='0' WHERE id=:question_id"
+	db.session.execute(sql, {"question_id":question_id})
+	db.session.commit()
+	return True

@@ -27,6 +27,13 @@ def create_course():
             return redirect("/")
         return render_template("error.html", message="Kurssin lisääminen ei onnistunut.")
 
+@app.route("/delete_course", methods=["post"])
+def delete_course():
+    users.require_role(2)
+    if courses.delete_course(session["course_id"]):
+        return redirect("/")
+    return render_template("error.html", message="Kurssin poistaminen ei onnistunut")
+
 @app.route("/add_description", methods=["post"])
 def add_description():
     users.require_role(2)
@@ -50,6 +57,16 @@ def add_question():
         return render_template("error.html", message="Vastauksen on oltava 1-100 merkkiä.")
     if questions.add_question(course_id, question, answer):
     	return redirect(f"/course/{course_id}")
+
+@app.route("/delete_question", methods=["post"])
+def delete_question():
+    users.require_role(2)
+    course_id = session["course_id"]
+    question_id = request.form["question_id"]
+    if questions.delete_question(question_id):
+        return redirect(f"/course/{course_id}")
+    return render_template("error.html", message="Kurssin poistaminen ei onnistunut")
+
 
 @app.route("/add_answer", methods=["post"])
 def add_answer():

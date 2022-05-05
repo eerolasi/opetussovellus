@@ -23,6 +23,12 @@ def create_course(name):
 		return False
 	return True
 
+def delete_course(course_id):
+	sql = "UPDATE courses SET visible='0' where id=:course_id"
+	db.session.execute(sql, {"course_id":course_id})
+	db.session.commit()
+	return True
+
 def add_description(course_id, description):
 	sql = "INSERT INTO descriptions (course_id, description) VALUES (:course_id, :description)"
 	db.session.execute(sql, {"course_id":course_id, "description":description})
