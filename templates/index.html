@@ -1,0 +1,7 @@
+<p> Sovellus tarjoaa harjoituksia eri aineissa. </p>
+{% if session.user_id %}
+<p>Olet kirjautunut sisään nimellä <b> {{ session.user_name}}</b>.</p>
+<a href="/logout">Kirjaudu ulos.</a>
+{% else %}
+<p>Pääset tekemään tehtäviä <a href="/login"> kirjautumalla sisään.</a></p>
+{% endif %}

@@ -1,0 +1,13 @@
+{% if session.user_id %}
+<p>Olet kirjautunut sisään nimellä <b>{{ session.user_name }}</b>.</p>
+<p>Jos haluat kirjautua sisään toiselle käyttäjälle <a href="/logout">kirjaudu ulos</a>.</p>
+{% else %}
+<h2>Kirjaudu sisään</h2>
+<form action="/login" method="post">
+<p>Käyttäjätunnus:<br><input type="text" name="username"></p>
+<p>Salasana: <br><input type="password" name="password"></p>
+<button type="submit">Kirjaudu</button>
+</form>
+<p>Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä</a>.</p>
+{% endif %}
+<a href="/">Palaa takaisin.</a>
