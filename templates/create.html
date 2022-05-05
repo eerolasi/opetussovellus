@@ -1,0 +1,9 @@
+<h2>Luo uusi kurssi</h2>
+{% if session.user_role == 2 %}
+<form action="/create" method="post">
+<p>Kurssin nimi:</p>
+<input type="text" name="course_name">
+<input type="submit" value="Lähetä">
+{% else %}
+{% endif %}
+</form>

@@ -1,7 +1,20 @@
-<p> Sovellus tarjoaa harjoituksia eri aineissa. </p>
+<p> Sovellus tarjoaa harjoituksia eri kouluaineissa. </p>
+<p>Tarjolla olevat kurssit:</p>
+<ul>
+{% for course in courses %}
 {% if session.user_id %}
-<p>Olet kirjautunut sisään nimellä <b> {{ session.user_name}}</b>.</p>
-<a href="/logout">Kirjaudu ulos.</a>
+    <li><a href="/courses/{{ course.id }}">{{ course.name.capitalize() }}</a></li>
+    {% else %}
+    <li>{{ course.name.capitalize() }}</li>
+{% endif %}
+{% endfor %}
+</ul>
+{% if session.user_id %}
+<p>Olet kirjautunut sisään nimellä <b> {{ session.user_name }}</b>.</p>
+{% if session.user_role == 2 %}
+<p><a href="/create">Tee uusi kurssi</a></p>
+{% endif %}
+<p><a href="/logout">Kirjaudu ulos</a></p>
 {% else %}
 <p>Pääset tekemään tehtäviä <a href="/login"> kirjautumalla sisään.</a></p>
 {% endif %}

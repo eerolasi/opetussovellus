@@ -1,10 +1,28 @@
 from app import app
 from flask import render_template, request, redirect
-import users
+from flask import session
+import users, courses
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", courses=courses.get_courses())
+
+@app.route("/course/<int:course_id>")
+def course(course_id):
+        return render_template("course.html", course=courses.get_course(course_id))
+
+@app.route("/create", methods=["get","post"])
+def create_course():
+    if request.method == "GET":
+        if session["user_role"] == 1:
+            return redirect("/")
+        users.require_role(2)
+        return render_template("create.html")
+    if request.method == "POST":
+        course_name = request.form["course_name"]
+        if courses.create_course(course_name):
+            return redirect("/")
+        return render_template("error.html", message="Kurssin lisääminen ei onnistunut.")
 
 @app.route("/login", methods=["get","post"])
 def login():
