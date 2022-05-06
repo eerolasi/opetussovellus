@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 from flask import session
-import users, courses, questions
+import users, courses, questions, stats
 
 @app.route("/")
 def index():
@@ -9,10 +9,11 @@ def index():
 
 @app.route("/course/<int:course_id>")
 def course(course_id):
+    user_id = session["user_id"]
     question = questions.get_questions(course_id)
     length = len(question)
     return render_template("course.html", course=courses.get_course(course_id),
-        description=courses.get_description(course_id), questions=question)
+        description=courses.get_description(course_id), questions=question,len=length, stats=stats.get_course_points(course_id, user_id))
 
 @app.route("/create", methods=["get","post"])
 def create_course():
@@ -67,7 +68,6 @@ def delete_question():
         return redirect(f"/course/{course_id}")
     return render_template("error.html", message="Kurssin poistaminen ei onnistunut")
 
-
 @app.route("/add_answer", methods=["post"])
 def add_answer():
     users.check_csrf()
@@ -79,6 +79,9 @@ def add_answer():
         return redirect(f"/course/{course_id}")
     return redirect(f"/course/{course_id}")
 
+@app.route("/statistics")
+def statistics():
+    return render_template("statistics.html", courses=stats.get_all_points())
 
 @app.route("/login", methods=["get","post"])
 def login():

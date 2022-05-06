@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if session.user_id %}
+<h3>Kurssitilastot:</h3>
+
+{% if session.user_role == 2 %}
+{% for course in courses %}
+<h4>{{ course[0].capitalize() }}</h4>
+<table>
+  <tr>
+    <th>Opiskelija</th>
+    <th>Pisteet</th>
+    {% for user in course[1] %}
+  </tr>
+  <tr>
+    <td>{{ user[1] }}</td>
+    <td>{{ user[2] }}/{{course[2]}}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endfor %}
+{% endif %}
+
+{% for course in courses %}
+{% for user in course[1] %}
+{% if user[0] == session.user_id and session.user_role == 1 %}
+<h4>{{ course[0].capitalize() }}</h4>
+<table>
+  <tr>
+    <th>Pisteesi</th>
+  </tr>
+  <tr>
+    <td>{{ user[2] }}/{{ course[2] }}</td>
+  </tr>
+</table>
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+<p><a href="/">Palaa takaisin</a></p>
+{% endif %}
+
+{% endblock %}

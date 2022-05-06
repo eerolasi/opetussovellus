@@ -41,7 +41,12 @@
 {% endif %}
 {% endfor %}
 
-{% if session.user_role == 2 %}
+{% if session.user_role == 1 %}
+<p>Pisteet: {{ stats[0] }} / {{ len }}</p>
+{% if stats[0] == len and stats[0] != 0 %}
+<p>Hienoa, olet saanut kaikki tehtävät oikein!</p>
+{% endif %}
+{% else %}
 <form action="/delete_course" method="post">
 <p><button type="submit">Poista kurssi</button></p>
 </form>
