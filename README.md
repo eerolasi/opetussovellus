@@ -17,3 +17,5 @@
 - Sovelluksessa on eri kouluaineiden kursseja.
 - Kurssit sisältävät erilaisia tehtäviä, esim. kielten kursseissa käännöksiä ja matematiikan kursseissa laskuja.
 - Tehtävät ovat automaattisesti tarkastettavia tekstitehtäviä.
+
+Sovellus löytyy [Herokusta](https://opetussovellukseni.herokuapp.com/).
