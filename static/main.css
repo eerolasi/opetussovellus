@@ -56,6 +56,8 @@ a {
 }
 
 button {
+    border: #000;
+    color: black;
     background-color: white;
 }
 
