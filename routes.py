@@ -27,6 +27,8 @@ def create_course():
         users.require_role(2)
         return render_template("create.html")
     if request.method == "POST":
+        users.check_csrf()
+
         course_name = request.form["course_name"]
         if courses.create_course(course_name):
             return redirect("/")
@@ -35,6 +37,8 @@ def create_course():
 @app.route("/delete_course", methods=["post"])
 def delete_course():
     users.require_role(2)
+    users.check_csrf()
+
     if courses.delete_course(session["course_id"]):
         return redirect("/")
     return render_template("error.html", message="Kurssin poistaminen ei onnistunut")
@@ -66,6 +70,7 @@ def add_question():
 @app.route("/delete_question", methods=["post"])
 def delete_question():
     users.require_role(2)
+    users.check_csrf()
     course_id = session["course_id"]
     question_id = request.form["question_id"]
     if questions.delete_question(question_id):
