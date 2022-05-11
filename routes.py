@@ -12,6 +12,7 @@ def index():
 
 @app.route("/course/<int:course_id>")
 def course(course_id):
+    users.require_role(1 or 2)
     user_id = session["user_id"]
     question = questions.get_questions(course_id)
     length = len(question)
@@ -21,14 +22,14 @@ def course(course_id):
 
 @app.route("/create", methods=["get","post"])
 def create_course():
+    users.require_role(2)
+
     if request.method == "GET":
         if session["user_role"] == 1:
             return redirect("/")
-        users.require_role(2)
         return render_template("create.html")
     if request.method == "POST":
         users.check_csrf()
-
         course_name = request.form["course_name"]
         if courses.create_course(course_name):
             return redirect("/")
@@ -38,7 +39,6 @@ def create_course():
 def delete_course():
     users.require_role(2)
     users.check_csrf()
-
     if courses.delete_course(session["course_id"]):
         return redirect("/")
     return render_template("error.html", message="Kurssin poistaminen ei onnistunut")
