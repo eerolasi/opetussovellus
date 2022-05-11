@@ -1,7 +1,10 @@
 from app import app
 from flask import render_template, request, redirect
 from flask import session
-import users, courses, questions, stats
+import users
+import courses
+import questions
+import stats
 
 @app.route("/")
 def index():
@@ -13,7 +16,8 @@ def course(course_id):
     question = questions.get_questions(course_id)
     length = len(question)
     return render_template("course.html", course=courses.get_course(course_id),
-        description=courses.get_description(course_id), questions=question,len=length, stats=stats.get_course_points(course_id, user_id))
+           description=courses.get_description(course_id), questions=question,
+           len=length, stats=stats.get_course_points(course_id, user_id))
 
 @app.route("/create", methods=["get","post"])
 def create_course():

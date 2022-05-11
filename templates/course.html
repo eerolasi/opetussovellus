@@ -44,7 +44,7 @@
 {% endfor %}
 
 {% if session.user_role == 1 %}
-<p>Pisteet: {{ stats[0] }} / {{ len}}</p>
+<p>Pisteet: {{ stats[0] }} / {{ len }}</p>
 {% if stats[0] == len and stats[0] != 0 %}
 <p>Hienoa, olet saanut kaikki tehtävät oikein!</p>
 {% endif %}
