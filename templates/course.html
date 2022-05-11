@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1> {{ course.name.capitalize() }} </h1>
+<h2> {{ course.name.capitalize() }} </h2>
 {% if session.user_role == 2 %}
 <h3>Muokkaa kurssin kuvausta:</h3>
 <form action="/add_description" method="post">
 <p><textarea name="description">{{ description.description }}</textarea>
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"></p>
-<p><button type="submit">Tallenna</button></p>
+<p><button class="addbutton" type="submit">Tallenna</button></p>
 </form>
 {% else %}
 <p>{{ description.description }}</p>
@@ -16,40 +16,43 @@
 {% if session.user_role == 2 %}
 <h3>Lisää kysymys:</h3>
 <form action="/add_question" method="post">
-<p>Kysymys: <input type="text" name="question" minlength="1" maxlength="100"></p>
-<p>Vastaus: <input type="text" name="answer" minlength="1" maxlength="100"></p>
+<p>Kysymys: <br><input type="text" name="question" minlength="1" maxlength="100"></p>
+<p>Vastaus: <br> <input type="text" name="answer" minlength="1" maxlength="100"></p>
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-<p><button type="submit">Lisää kysymys</button></p>
+<p><button class="addbutton" type="submit">Lisää kysymys</button></p>
 </form>
 {% endif %}
 
 <h3>Kysymykset:</h3>
 {% for question in questions %}
 {% if session.user_role == 1 %}
+
 <form action="/add_answer" method="post">
-<p>Kysymys: {{ question.question }}</p>
-<p>Vastaus: <input type="text" name="answer" minlength="1" maxlength="100"></p>
+<p>{{ question.question.capitalize() }}</p>
+<p>Vastaus:
+<br><input type="text" name="answer" minlength="1" maxlength="100">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-<p><button type="submit" name="question_id" value="{{ question.id }}">Vastaa</button></p>
+<button class="addbutton" type="submit" name="question_id" value="{{ question.id }}">Vastaa</button></p>
 </form>
 {% else %}
 <p>Kysymys: {{ question.question }}</p>
 <p>Vastaus: {{ question.answer }}</p>
 <form action="/delete_question" method="post">
-<button type="submit"  name="question_id" value="{{ question.id }}">Poista kysymys</button>
+<button class="deletebutton" type="submit"  name="question_id" value="{{ question.id }}">Poista kysymys</button>
 </form>
 {% endif %}
 {% endfor %}
 
 {% if session.user_role == 1 %}
-<p>Pisteet: {{ stats[0] }} / {{ len }}</p>
+<p>Pisteet: {{ stats[0] }} / {{ len}}</p>
 {% if stats[0] == len and stats[0] != 0 %}
 <p>Hienoa, olet saanut kaikki tehtävät oikein!</p>
 {% endif %}
 {% else %}
 <form action="/delete_course" method="post">
-<p><button type="submit">Poista kurssi</button></p>
+<p><button class="deletebutton" type="submit">Poista kurssi</button></p>
 </form>
 {% endif %}
+<p><a href="/">Palaa takaisin</a></p>
 
 {% endblock %}

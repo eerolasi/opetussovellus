@@ -1,0 +1,70 @@
+body {
+    background-color: bisque;
+}
+
+table,th, td {
+    border: 1px groove;
+    width:fit-content;
+}
+
+ul,li {
+    list-style-type: circle;
+}
+
+ul a, li a {
+    text-decoration:none;
+}
+
+p a {
+    text-decoration: none;
+}
+
+main {
+    background-color: white;
+    max-width: 45em;
+    padding: 3em;
+    padding-top: 1.5em;
+    border-radius: 1em;
+    margin: auto;
+    margin-bottom: auto;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+nav li {
+    display: inline-block;
+    padding: 0.5em
+}
+
+nav ul {
+    padding: 0;
+}
+
+nav li a {
+    text-decoration: none;
+    color: #000;
+
+}
+
+h1 {
+    color: rgb(226, 207, 171);
+    font-weight: 100;
+    padding-left: 0.2em;
+}
+
+a {
+    color: rgb(141, 131, 131);
+}
+
+button {
+    background-color: white;
+}
+
+.addbutton:hover {
+    background-color: bisque;
+
+}
+
+.deletebutton:hover {
+      background-color: rgb(160, 53, 53);
+}
+

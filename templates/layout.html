@@ -1,8 +1,20 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Opetussovellus - {% block title %}{% endblock %}</title>
-
+<body>
+<main>
 <h1>Opetussovellus</h1>
-<a href="/">Etusivu</a>
-<a href="/login">Kirjautuminen</a>
-<a href="/statistics">Tilastot</a>
+<nav>
+  <ul>
+    <li><a href="/">Etusivu</a>
+    <li><a href="/login">Kirjautuminen</a></li>
+    <li><a href="/statistics">Tilastot</a></li>
+  </ul>
+</nav>
 <hr>
 {% block content %}{% endblock %}
+</main>
+</body>
+</html>
