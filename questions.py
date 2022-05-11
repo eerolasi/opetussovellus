@@ -19,23 +19,25 @@ def add_question(course_id, question, answer):
 	return True
 
 def add_answer(user_id, question_id, answer):
-	try:
-		sql = "SELECT result FROM answers WHERE question_id=:question_id AND user_id=:user_id"
-		result = db.session.execute(sql, {"question_id":question_id, "user_id":user_id}).fetchone()[0]
-		if result == 1:
-			return True
-	except:
-		pass
 	sql = "SELECT answer FROM questions WHERE id=:question_id"
 	correct = db.session.execute(sql, {"question_id":question_id}).fetchone()[0]
-	if answer == correct:
-		result = 1
+	sql="select a.result from answers a, questions q where user_id=:user_id and question_id=:question_id and a.result=1"
+	result = db.session.execute(sql,{"user_id":user_id,"question_id":question_id}).fetchall()
+	if not len(result) or result == 0:
+		if answer.lower() == correct.lower():
+			result = 1
+		else:
+			result = 0
+		print(result)
+		sql = """INSERT INTO answers (user_id, question_id, answer, result)
+             VALUES (:user_id, :question_id,:answer, :result)"""
+		db.session.execute(sql, {"user_id":user_id, "question_id":question_id, "answer":answer, "result":result})
+		db.session.commit()
+
 	else:
-		result = 0
-	sql = "INSERT INTO answers (user_id, question_id, answer, result) VALUES (:user_id, :question_id, :answer, :result)"
-	db.session.execute(sql, {"user_id":user_id, "question_id":question_id, "answer":answer, "result":result})
-	db.session.commit()
-	return True
+		print("tää")
+		db.session.execute(sql, {"user_id":user_id, "question_id":question_id, "answer":answer, "result":result})
+		db.session.commit()
 
 def get_course(question_id):
 	sql = "SELECT course_id FROM questions WHERE id=:id"

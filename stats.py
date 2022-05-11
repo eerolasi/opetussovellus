@@ -12,7 +12,7 @@ def get_all_points():
     sql = """SELECT c.id, c.name, count(q.question)
              FROM courses c, questions q
              WHERE c.visible=1 AND q.visible=1
-             AND c.id=q.course_id GROUP BY c.id ORDER BY name"""
+             AND c.id=q.course_id GROUP BY c.id ORDER BY c.name"""
     courses = db.session.execute(sql).fetchall()
     list = []
     for course in courses:
@@ -20,8 +20,7 @@ def get_all_points():
                  FROM answers a, courses c, users u, questions q
                  WHERE q.course_id=c.id AND q.id=a.question_id
                  AND u.id=a.user_id AND c.id=:course_id AND q.visible=1
-                 GROUP BY u.id, u.name ORDER BY u.name"""
-
+                 GROUP BY u.id, u.name"""
         results = db.session.execute(sql, {"course_id":course[0]}).fetchall()
         list.append((course[1], results, course[2]))
     return list
