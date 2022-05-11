@@ -6,9 +6,9 @@
 <ul>
 {% for course in courses %}
 {% if session.user_id %}
-    <li><a href="/course/{{ course.id }}">{{ course.name.capitalize() }}</a></li>
-    {% else %}
-    <li>{{ course.name.capitalize() }}</li>
+<li><a href="/course/{{ course.id }}">{{ course.name.capitalize() }}</a></li>
+{% else %}
+<li>{{ course.name.capitalize() }}</li>
 {% endif %}
 {% endfor %}
 </ul>

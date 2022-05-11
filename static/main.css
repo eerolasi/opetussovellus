@@ -63,10 +63,9 @@ button {
 
 .addbutton:hover {
     background-color: bisque;
-
 }
 
 .deletebutton:hover {
-      background-color: rgb(160, 53, 53);
+    background-color: rgb(160, 53, 53);
 }
 
