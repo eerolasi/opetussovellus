@@ -38,6 +38,7 @@
 <p>Kysymys: {{ question.question }}</p>
 <p>Vastaus: {{ question.answer }}</p>
 <form action="/delete_question" method="post">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <button class="deletebutton" type="submit"  name="question_id" value="{{ question.id }}">Poista kysymys</button>
 </form>
 {% endif %}
@@ -50,6 +51,7 @@
 {% endif %}
 {% else %}
 <form action="/delete_course" method="post">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <p><button class="deletebutton" type="submit">Poista kurssi</button></p>
 </form>
 {% endif %}
