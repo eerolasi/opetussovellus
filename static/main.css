@@ -1,5 +1,6 @@
 body {
     background-color: bisque;
+    padding: 3em;
 }
 
 table,th, td {
@@ -21,12 +22,12 @@ p a {
 
 main {
     background-color: white;
-    max-width: 50em;
+    max-width: 60em;
     padding: 3em;
     padding-top: 1.5em;
     border-radius: 1em;
     margin: auto;
-    margin-bottom: auto;
+    margin-inline-start: auto;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
